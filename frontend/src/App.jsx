@@ -13,6 +13,7 @@ import Footer from './Components/Footer'
 import NewContact from './Pages/NewContact'
 import ContactUs from './Pages/ContactUs'
 import Navbar from './Components/Navbar'
+import ThemeTester from './Pages/ThemeTester'
 const App = () => {
   const {authUser,checkAuth, isCheckingAuth} = useAuthStore()
   useEffect(() =>{
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/chat" element={authUser ? <Chat /> : <Navigate to="/login" />} />
         <Route path="/test" element={authUser ? <Test /> : <Navigate to="/login" />} />
         <Route path="/contact" element={authUser ? <NewContact /> : <Navigate to="/login" />} />
+        <Route path="/theme-tester" element={<ThemeTester />} />
 
         
       </Routes>

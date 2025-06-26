@@ -7,7 +7,7 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = React.useState(false);
 //   alert(showMenu)
   return (
-    <div className="top-0 text-white sticky z-50">
+    <div className="top-0 text-white sticky z-50 max-h-24">
       <div className="hidden lg:flex flex-col">
       <ul className="hidden lg:flex flex-row justify-between ml-[40%] mr-[10%] py-3.5 font-bold text-2xl  ">
         <li className=""><Link to="/Home" className="hover:underline">Home</Link></li>
@@ -30,9 +30,9 @@ const Navbar = () => {
         />
       </div>
       {showMenu
-        ? (<div className="" >
+        ? (<div className="lg:hidden" >
       
-      <ul className="lg:hidden flex flex-col w-full text-center h-screen text-3xl gap-8 list-none "onClick={async () =>{
+      <ul className="flex lg:hidden  flex-col w-full text-center h-screen text-3xl gap-8 list-none "onClick={async () =>{
         setShowMenu(false)
       }}>
       <li className="hover:bg-gray-800 hover:opacity-50 py-4"><Link to="/Home" className="hover:underline">Home</Link></li>

@@ -26,7 +26,10 @@ const theme = createTheme({
 createRoot(document.getElementById('root')).render(
   <StrictMode>
    <ThemeProvider theme={theme}>
+    <div data-theme="dracula">
     <App />
+
+    </div>
     </ThemeProvider>
   </StrictMode>,
 )

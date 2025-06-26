@@ -4,27 +4,50 @@ import ChatCard from "./ChatCard";
 import { useAuthStore } from "../store/useAuthStore";
 function Chat() {
   const { listUsers, users } = useAuthStore();
-    const currUser = useAuthStore((state) => state.authUser)?.username; // Safely access username
-  
-  const [receiver, setReceiver] = useState(currUser)
+  const currUser = useAuthStore((state) => state.authUser)?.username; // Safely access username
+
+  const [receiver, setReceiver] = useState(currUser);
   useEffect(() => {
     users();
   }, [users]);
-  
+  const [extend, setExtend] = useState(false);
 
   return (
-    <div className="relative w-full bg-cover bg-center inset-0 bg-gray-500 h-screen py-[5%]">
-      <div className="flex flex-row  h-full">
-        <div className="w-36 h-full flex flex-col items-center flex-grow overflow-y-auto">
+    <div className="fixed w-full bg-cover bg-center inset-0 bg-gray-900 h-screen ">
+      <div className="flex flex-row  h-full pb-[0%]">
+        <div
+          className={`${
+            extend ? "w-36" : "w-12"
+          } hover:w-36  flex flex-col items-start flex-grow overflow-y-auto bg-black/30 py-[4%] hide-scrollbar `}
+          onMouseEnter={async () => {
+            setExtend(!extend);
+          }}
+          onMouseLeave={async () => {
+            setExtend(!extend);
+          }}
+        >
+          <button
+            className="lg:hidden btn btn-soft btn-secondary ml-1"
+            onClick={async () => {
+              setExtend(!extend);
+            }}
+          ></button>
+
           {Object.entries(listUsers).map(([key, val]) => (
-            <ChatCard key={key} img={val.profilePic} username={val.username} onClick={async () =>{
-              setReceiver(val.username)
-            }} />
+            <ChatCard
+              key={key}
+              img={val.profilePic}
+              username={val.username}
+              expand={extend}
+              onClick={async () => {
+                setReceiver(val.username);
+              }}
+            />
           ))}
         </div>
-        <div className="divider divider-horizontal divider-success"></div>
-        <div className="w-full ">
-          <MessageArea key={"123"} rec={receiver}/>
+        {/* <div className="divider divider-horizontal divider-success"></div> */}
+        <div className="w-full pt-[5%]">
+          <MessageArea key={"123"} rec={receiver} />
         </div>
       </div>
     </div>
