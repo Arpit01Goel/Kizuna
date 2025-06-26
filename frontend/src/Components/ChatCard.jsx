@@ -9,7 +9,7 @@ function Username({name}) {
 function ChatCard(props) {
   const [showUsername, setShowUsername] = useState(false)
   return (
-    <div className="relative rounded-lg  mb-3 hover:bg-gray-700 " onClick={props.onClick}
+    <div className="relative rounded-lg  mb-3 hover:bg-base-300 " onClick={props.onClick}
     
     >
       <div className="flex flex-row ">

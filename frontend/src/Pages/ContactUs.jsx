@@ -19,7 +19,7 @@ function ContactUs() {
   };
   return (
     <div className="min-h-screen w-screen bg-[url('./assets/contactUs.jpg')] bg-no-repeat bg-center bg-cover  py-[5%] px-[5%] relative">
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-md h-full"></div>
+      <div className="absolute inset-0 bg-base-300/60 backdrop-blur-md h-full"></div>
       <div className="relative z-10">
         <div className=" place-content-center-safe text-2xl ">
           <div className="text-4xl flex flex-row items-center justify-around font-bold my-5">
@@ -31,7 +31,7 @@ function ContactUs() {
           and our dedication.
         </div>
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="card bg-primary text-primary-content w-9/12 md:w-3/12 ">
+          <div className="card bg-base-300 text-primary-content w-9/12 md:w-3/12 ">
             <div className="card-body h-96">
               <h2 className="card-title">Contact Information</h2>
               <p>You can also contact us using this information: </p>

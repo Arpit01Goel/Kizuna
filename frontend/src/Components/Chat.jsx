@@ -13,12 +13,12 @@ function Chat() {
   const [extend, setExtend] = useState(false);
 
   return (
-    <div className="fixed w-full bg-cover bg-center inset-0 bg-gray-900 h-screen ">
+    <div className="fixed w-full bg-cover bg-center inset-0 bg-base-100 h-screen ">
       <div className="flex flex-row  h-full pb-[0%]">
         <div
           className={`${
             extend ? "w-36" : "w-12"
-          } hover:w-36  flex flex-col items-start flex-grow overflow-y-auto bg-black/30 py-[4%] hide-scrollbar `}
+          } hover:w-36  flex flex-col items-start flex-grow overflow-y-auto bg-base-200/30 py-[4%] hide-scrollbar `}
           onMouseEnter={async () => {
             setExtend(!extend);
           }}

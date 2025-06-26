@@ -26,7 +26,7 @@ const theme = createTheme({
 createRoot(document.getElementById('root')).render(
   <StrictMode>
    <ThemeProvider theme={theme}>
-    <div data-theme="dracula">
+    <div data-theme="dark">
     <App />
 
     </div>

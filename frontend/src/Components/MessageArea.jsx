@@ -29,7 +29,7 @@ function MessageArea({ rec }) {
   };
 
   return (
-    <div className="relative text-5xl text-fuchsia-700 flex flex-col justify-between h-full">
+    <div className="relative text-5xl text-primary-content flex flex-col justify-between h-full">
       <div className="overflow-y-auto m-12 h-full">
         {Object.entries(listMessages).map(([key, item]) => (
           <SingleMessage
@@ -44,7 +44,7 @@ function MessageArea({ rec }) {
       <div className="flex flex-row items-center w-full ">
         <input
           type="file"
-          className="file-input file-input-accent w-24"
+          className="file-input file-input-primary w-24"
           value={file}
           onChange={(e) => setFile(e.target.files[0])}
         />
@@ -55,7 +55,7 @@ function MessageArea({ rec }) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <button className="btn btn-accent w-12" onClick={handleSubmit}>
+        <button className="btn btn-primary w-12" onClick={handleSubmit}>
           Submit
         </button>
       </div>

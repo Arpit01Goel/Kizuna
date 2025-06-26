@@ -60,7 +60,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-violet-400 lg:bg-[url(/images/Purple2.jpg)] bg-no-repeat bg-center bg-cover text-cyan-400 relative">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-base-100 lg:bg-[url(/images/Purple2.jpg)] bg-no-repeat bg-center bg-cover text-base-content relative">
       <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black backdrop-blur-md min-h-screen flex items-center justify-center">
         <div className=" bg-black/50 rounded-lg w-full max-w-96 lg:max-w-4xl p-6 lg:p-12 flex flex-col lg:flex-row items-stretch ">
           <div className="p-8 lg:flex py-32 items-center justify-center w-full lg:w-1/2 hidden ">
@@ -99,9 +99,9 @@ export default function Login() {
                         onClick={togglePasswordVisibility}
                         edge="end"
                         sx={{
-                          color: "#06b6d4", // Change the color of the icon
+                          color: "#FFFFFF", // Change the color of the icon
                           "&:hover": {
-                            color: "#0891b2", // Change color on hover
+                            color: "#D3D3D#", // Change color on hover
                           },
                         }}
                       >
@@ -112,32 +112,13 @@ export default function Login() {
                 }}
               />
               <div className="flex justify-center lg:justify-start items-center mt-4">
-                <Button
-                  type="submit"
-                  variant="outlined"
-                  sx={{
-                    color: "#06b6d4", // cyan-500
-                    borderColor: "#06b6d4",
-                    "&:hover": {
-                      borderColor: "#0891b2", // cyan-600
-                      backgroundColor: "rgba(6, 182, 212, 0.04)",
-                    },
-                  }}
-                >
-                  Submit
-                </Button>
-                <Button
-                  variant="text"
-                  sx={{
-                    color: "#06b6d4", // cyan-500
-                    "&:hover": {
-                      color: "#0891b2", // cyan-600
-                    },
-                  }}
-                  onClick={handleSignupRedirect}
-                >
-                  Don't have an account? Signup
-                </Button>
+                
+                <button type="submit" className="btn btn-outline btn-base-content">Submit</button>
+                
+                
+                  
+                
+                <button className="btn btn-link text-base-content" onClick={handleSignupRedirect}>Don't have an account? Signup</button>
               </div>
             </form>
           </div>
