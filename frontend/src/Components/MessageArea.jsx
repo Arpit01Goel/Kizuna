@@ -1,36 +1,65 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import SingleMessage from "./SingleMessage";
-function MessageArea({ rec }) {
-  console.log(rec);
-  const currUser = useAuthStore((state) => state.authUser)?._id; // Safely access username
-  const listMessages = useAuthStore((state) => state.listMessages); // Access listMessages
-  const receiver = rec;
+
+function MessageArea({ receiver }) {
+  const {
+    authUser,
+    listMessages,
+    sendMessage,
+    messages,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+  } = useAuthStore();
+  const currUser = authUser._id;
+
   const [isSubmit, setIsSubmit] = useState(false);
+  const [message, setMessage] = useState("");
+  const [file, setFile] = useState("");
+
+  // Ref for the messages container
+  const messagesEndRef = useRef(null);
+
+  // Scroll to the bottom of the messages container
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+    }
+  };
+
   useEffect(() => {
     if (receiver) {
-      useAuthStore.getState().messages({ receiver }); // Call messages directly from the store
+      messages({ receiver });
+      subscribeToMessages();
     }
-  }, [receiver, isSubmit]); // Only depend on receiver
-  const [file, setFile] = useState("");
-  const sendMessage = useAuthStore((state) => state.sendMessage);
-  const [message, setMessage] = useState("");
+
+    return () => unsubscribeFromMessages();
+  }, [receiver, messages, subscribeToMessages, unsubscribeFromMessages]);
+
+  // Scroll to bottom whenever listMessages changes
+  useEffect(() => {
+    scrollToBottom();
+  }, [listMessages]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (message.trim() || file) {
       sendMessage({ receiver: receiver, text: message, image: file });
       setMessage("");
       setFile("");
+      setIsSubmit(!isSubmit);
 
-      setTimeout(() => {
-        setIsSubmit(!isSubmit);
-      }, 100);
+      // Scroll to bottom after sending a message
+      scrollToBottom();
     }
   };
 
   return (
     <div className="relative text-5xl text-primary-content flex flex-col justify-between h-full">
-      <div className="overflow-y-auto m-12 h-full">
+      <div
+        className="overflow-y-auto m-12 h-full"
+        ref={messagesEndRef} // Attach the ref to the container
+      >
         {Object.entries(listMessages).map(([key, item]) => (
           <SingleMessage
             key={key}
@@ -54,6 +83,11 @@ function MessageArea({ rec }) {
           placeholder="Your Message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSubmit(e); // Trigger handleSubmit when Enter is pressed
+            }
+          }}
         />
         <button className="btn btn-primary w-12" onClick={handleSubmit}>
           Submit

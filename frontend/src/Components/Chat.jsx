@@ -3,7 +3,7 @@ import MessageArea from "./MessageArea";
 import ChatCard from "./ChatCard";
 import { useAuthStore } from "../store/useAuthStore";
 function Chat() {
-  const { listUsers, users } = useAuthStore();
+  const { listUsers, users , setSelectedUser} = useAuthStore();
   const currUser = useAuthStore((state) => state.authUser)?.username; // Safely access username
 
   const [receiver, setReceiver] = useState(currUser);
@@ -26,28 +26,31 @@ function Chat() {
             setExtend(!extend);
           }}
         >
-          <button
+          {/* <button
             className="lg:hidden btn btn-soft btn-secondary ml-1"
             onClick={async () => {
               setExtend(!extend);
             }}
-          ></button>
+          ></button> */}
 
           {Object.entries(listUsers).map(([key, val]) => (
             <ChatCard
               key={key}
               img={val.profilePic}
               username={val.username}
+              userId={val._id}
               expand={extend}
               onClick={async () => {
                 setReceiver(val.username);
+                setSelectedUser(val)
               }}
             />
           ))}
+          
         </div>
         {/* <div className="divider divider-horizontal divider-success"></div> */}
         <div className="w-full pt-[5%]">
-          <MessageArea key={"123"} rec={receiver} />
+          <MessageArea key={"123"} receiver={receiver} />
         </div>
       </div>
     </div>

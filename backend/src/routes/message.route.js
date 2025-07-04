@@ -4,6 +4,7 @@ const User = require("../models/user.model")
 const protectRoute = require("../middlewares/auth.middleware")
 const Message = require("../models/message.model")
 const mongoose = require("mongoose")
+const {io,getReceiverSocketId} = require("../lib/socket")
 router.get("/users", protectRoute, async (req, res) => {
     try {
 
@@ -22,8 +23,7 @@ router.post("/send/:id", protectRoute, async (req, res) => {
         const { text, image } = req.body;
         
         const { id: receiverUsername } = req.params
-        console.log(receiverUsername)
-        console.log(req.user.username)
+        
         const receiverObj = await User.findOne({ username: receiverUsername })
         const receiver = receiverObj._id
         const sender = req.user._id
@@ -34,7 +34,7 @@ router.post("/send/:id", protectRoute, async (req, res) => {
             image: image,
             time: new Date()
         })
-        console.log(nwMessage)
+        
         const SenderMessageModel =
         mongoose.models[`messages_${sender}`] || mongoose.model(`messages_${sender}`, Message.schema);
         await SenderMessageModel.create(nwMessage)
@@ -50,7 +50,12 @@ router.post("/send/:id", protectRoute, async (req, res) => {
         }
 
 
-        //socket.io use here
+        // //socket.io use here
+        const receiverSocketId = getReceiverSocketId(receiver)
+        if (receiverSocketId) {
+            //receiver is online 
+            io.to(receiverSocketId).emit("newMessage", nwMessage)
+        }
 
         res.status(201).json(nwMessage)
     } catch (error) {
@@ -65,8 +70,7 @@ router.get("/:id", protectRoute, async (req, res) => {
         const receiverObj =await User.findOne({ username: receiverUsername })
         const receiver = receiverObj._id
         const sender = req.user._id
-        console.log(sender) 
-        console.log(receiver)
+       
         const senderModel = mongoose.models[`messages_${sender}`] || mongoose.model(`messages_${sender}`, Message.schema);
         
         const messages = await senderModel.find({
@@ -75,7 +79,7 @@ router.get("/:id", protectRoute, async (req, res) => {
                 { sender: receiver, receiver: sender }
             ]
         })
-        console.log(await senderModel.find())
+       
         
         res.status(200).json(messages)
     } catch (error) {

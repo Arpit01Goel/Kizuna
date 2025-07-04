@@ -2,8 +2,7 @@ import React from "react";
 import { format } from "date-fns";
 
 function SingleMessage(props) {
-  console.log(props.currUser)
-  console.log(props.sender)
+ 
   const chatType = props.currUser === props.sender ? "chat-end" : "chat-start";
   // const chatType = "chat-end"
   // console.log(props.key)

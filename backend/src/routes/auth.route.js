@@ -7,11 +7,13 @@ const protectRoute = require("../middlewares/auth.middleware.js")
 const generateToken = require("../lib/functions.js")
 dotenv.config();
 router.use(express.json());
+const multer = require("multer")
 
-
+const storage = multer.memoryStorage()
+const upload = multer({storage})
 router.post("/signup", async (req, res) => {
     try {
-        console.log("signup requrest")
+        
         const { firstName, lastName, email, password, username } = req.body;
         const user = new User({
             firstName: firstName,
@@ -51,7 +53,7 @@ router.post("/signup", async (req, res) => {
 })
 router.post("/login", async (req, res) => {
     const { username, password } = req.body;
-    // console.log(userna)
+    
     try {
 
         const user = await User.findOne({ username: username })
@@ -86,26 +88,31 @@ router.post("/logout", async (req, res) => {
     }
 })
 
-router.put("/update_profile", protectRoute, async (req, res) => {
+router.put("/update_profile", protectRoute,upload.single("profilePic"), async (req, res) => {
     try {
-        const { firstName, lastName, email, username } = req.body;
+       
+        const { firstName, lastName, email, username, image } = req.body;
+
+        const stringImage = image.buffer.toString("base64")
 
         const updatedUser = await User.findByIdAndUpdate(
             req.user._id,
-            { firstName, lastName, email, username },
+            { firstName: firstName,lastName:  lastName,email: email, username: username, profilePic: stringImage },
             { new: true, runValidators: true }
         )
-        console.log("updating in db start")
+        
         if (!updatedUser) {
             return res.status(404).json({ message: "User not found" });
         }
+
+
         res.status(200).json({
             message: "Profile updated successfully",
             user: updatedUser,
         });
 
     } catch (error) {
-        console.log("error is here")
+        console.log(error)
         res.status(500).json({ error: error })
     }
 })
