@@ -6,9 +6,9 @@ function generateToken(userId, res) {
     })
     res.cookie("jwt", token,{
         maxAge: 8*3600*1000,
-        sameSite: "strict", 
+        sameSite: "None", 
         httpOnly: true,
-        secure: process.env.NODE_ENV != "development"
+        secure: true
     })
     return token;
 }
