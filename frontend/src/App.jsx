@@ -37,6 +37,8 @@ const App = () => {
         <Route path="/signup" element={!authUser? <Signup />: <Navigate to="/chat" />} />
         <Route path="/login" element={!authUser? <Login />: <Navigate to="/chat" />  } />
         <Route path="/chat" element={authUser ? <Chat /> : <Navigate to="/login" />} />
+        <Route path="/chat/:username" element={authUser ? <Chat /> : <Navigate to="/login" />} />
+
         <Route path="/contact" element={authUser ? <NewContact /> : <Navigate to="/login" />} />
         <Route path="/theme-tester" element={<ThemeTester />} />
         <Route path="/profile" element={authUser ? <Profile /> : <Navigate to="/login" />} />
