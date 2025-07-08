@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const cookieParser = require("cookie-parser")
 const messageRoute = require("./routes/message.route")
 const authRoute = require("./routes/auth.route")
+const mailRoute = require("./routes/mail.route")
 const cors = require("cors")
 const {app, server} = require("./lib/socket")
 const dotenv = require("dotenv")
@@ -28,6 +29,7 @@ mongoose.connect(process.env.MONGO_URI)
 app.use("/auth" , authRoute);
 
 app.use("/message", messageRoute);
+app.use("/mail", mailRoute)
 
 
 const PORT = process.env.PORT;

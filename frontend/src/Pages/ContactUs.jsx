@@ -47,7 +47,18 @@ function ContactUs() {
             </div>
           </div>
           <div className=" flex flex-col justify-around items-center gap-2 w-full h-full  p-[5%]">
-            <div className="w-full">
+          <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLScSn5PpuBqKj1C0I1rChZ5QCWRUIAwerKzdekAiyZCAvKQycg/viewform?embedded=true"
+        width="50%"
+        height="600"
+        frameBorder="0"
+        marginHeight="0"
+        marginWidth="0"
+        className="rounded-lg shadow-md border border-gray-300"
+      >
+        Loading…
+      </iframe>
+            {/* <div className="w-full">
               <TextField
                 id="Subject"
                 label="Subject"
@@ -81,7 +92,7 @@ function ContactUs() {
               >
                 Submit
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

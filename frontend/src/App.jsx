@@ -13,6 +13,7 @@ import NewContact from './Pages/NewContact'
 import Navbar from './Components/Navbar'
 import ThemeTester from './Pages/ThemeTester'
 import Profile from './Components/Profile'
+import Review from "./Pages/Review"
 const App = () => {
   const {authUser,checkAuth, isCheckingAuth, onlineUsers} = useAuthStore()
   useEffect(() =>{
@@ -39,7 +40,7 @@ const App = () => {
         <Route path="/contact" element={authUser ? <NewContact /> : <Navigate to="/login" />} />
         <Route path="/theme-tester" element={<ThemeTester />} />
         <Route path="/profile" element={authUser ? <Profile /> : <Navigate to="/login" />} />
-
+        <Route path="/review" element={<Review />} />
 
         
       </Routes>

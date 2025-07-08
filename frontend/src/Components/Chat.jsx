@@ -18,7 +18,7 @@ function Chat() {
         <div
           className={`${
             extend ? "w-36" : "w-12"
-          } hover:w-36  flex flex-col items-start flex-grow overflow-y-auto bg-base-200/30 py-[4%] hide-scrollbar `}
+          } hover:w-36  flex flex-col items-start flex-grow overflow-y-auto bg-base-200/30 py-[96px] hide-scrollbar `}
           onMouseEnter={async () => {
             setExtend(!extend);
           }}

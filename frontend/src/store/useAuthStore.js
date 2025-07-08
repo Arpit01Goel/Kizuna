@@ -13,6 +13,7 @@ export const useAuthStore = create((set, get) => ({
     socket: null,
     onlineUsers: [],
     selectedUser: null,
+    listReviews: [],
 
     checkAuth: async () => {
         try {
@@ -99,6 +100,8 @@ export const useAuthStore = create((set, get) => ({
     sendMail: async (data) =>{
         try{
             //send mail data to backend 
+            
+            await axiosInstance.post("/mail/contactUs", data);
         }catch(err) {
             console.log(err)
         }
@@ -106,8 +109,19 @@ export const useAuthStore = create((set, get) => ({
     sendReview: async (data) =>{
         try{
             //send mail data to backend 
+            
+            await axiosInstance.post("/mail/review", data);
         }catch(err) {
             console.log(err)
+        }
+    },
+    getReview: async (data) =>{
+        try {
+            const reviews = await axiosInstance.get("/mail/review", data);
+            
+            set({listReviews: reviews.data.reviews})
+        } catch (error) {
+            console.log(error)
         }
     },
     updateProfile: async (data) =>{
